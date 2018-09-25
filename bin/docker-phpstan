@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+docker-compose exec -T php vendor/bin/phpstan.phar analyze -c /var/www/app/phpstan.neon -l 7 /var/www/app/src

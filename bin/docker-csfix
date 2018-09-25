@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+docker-compose exec -T php vendor/bin/php-cs-fixer --config=/var/www/app/.php_cs.dist fix

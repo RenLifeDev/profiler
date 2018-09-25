@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+    php:
+        build:
+            context: ./docker/php
+            dockerfile: Dockerfile
+            args:
+                useruid: "${UID}"
+                username: app
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10000k"
+        environment:
+            DEBUG: 1
+            ENABLE_SSH: 1
+        working_dir: "/var/www/app/"
+        user: app
+        hostname: "tester"
+        volumes:
+            - "./:/var/www/app/"
+            - "./docker/php/php.ini:/usr/local/etc/php/php.ini:ro"
+            - "./docker/php/fpm_pool.conf:/usr/local/etc/php-fpm.d/zz-docker.conf:ro"
+            - "${HOME}/.composer/cache:/home/app/.composer/cache"
+
+    mongo:
+        image: mongo:latest
+        restart: always
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: root
+            MONGO_INITDB_DATABASE: xhprof
+        tmpfs:
+            - /var/lib/mongodb
+        ports:
+            - "${MONGO_PORT}:27017"
+        volumes:
+            - "./docker/mongo/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+
+    mongo-express:
+        image: mongo-express
+        restart: always
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: root
+            ME_CONFIG_MONGODB_ADMINPASSWORD: root
+        ports:
+            - "${MONGO_EXPRESS_PORT}:8081"
