@@ -77,6 +77,9 @@ class ProfilerTest extends TestCase
         $instance->start();
         $profile1 = $instance->stop();
 
+        var_dump($profile1);
+        exit;
+
         $instance->start();
         $profile2 = $instance->stop();
 

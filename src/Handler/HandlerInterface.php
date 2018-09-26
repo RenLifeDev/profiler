@@ -2,27 +2,43 @@
 
 declare(strict_types=1);
 
-namespace Renlife\ProfilerBundle\Handler;
+namespace Renlife\Profiler\Handler;
 
-use Renlife\ProfilerBundle\Profiler\Profile;
+use Renlife\Profiler\Formatter\FormatterInterface;
+use Renlife\Profiler\Processor\ProcessorInterface;
+use Renlife\Profiler\Profile;
 
 /**
- * Хендлер принимает на вход записи логов профайлера и обрабатывает их, это может быть отправка в MongoDb, сохранение в
- * файл и др.
+ * HandlerInterface accepts Profile object and process its data.
  */
 interface HandlerInterface
 {
     /**
-     * Обрабаотывает переданные записи профилирования.
-     *
      * @param Profile $result
      */
     public function handle(Profile $result): void;
 
     /**
-     * Записывает переданные записи профилирования в хранилище.
+     * @param callable|ProcessorInterface $callable
      *
-     * @param Profile $result
+     * @return HandlerInterface
      */
-    public function write(Profile $result): void;
+    public function pushProcessor(callable $callable): self;
+
+    /**
+     * @return callable|ProcessorInterface
+     */
+    public function popProcessor(): callable;
+
+    /**
+     * @param callable|FormatterInterface|null $formatter
+     *
+     * @return HandlerInterface
+     */
+    public function setFormatter(?callable $formatter): self;
+
+    /**
+     * @return callable|FormatterInterface|null
+     */
+    public function getFormatter(): ?callable;
 }

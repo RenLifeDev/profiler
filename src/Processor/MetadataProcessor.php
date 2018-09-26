@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Renlife\ProfilerBundle\Processor;
+namespace Renlife\Profiler\Processor;
 
 use MongoDB\BSON\UTCDateTime;
+use Renlife\ProfilerBundle\Profiler\Profile;
 
 /**
- * Добавляет метаданные к профайлингу для последующей отправки их в монго.
+ * Add metadata to profile object.
  */
-class MongoProcessor
+class MetadataProcessor
 {
-    public function __invoke(array $meta)
+    public function __invoke(Profile $profile)
     {
         $uri = $_SERVER['REQUEST_URI'] ?? null;
         if ((null === $uri || '' === $uri) && isset($_SERVER['argv'])) {
@@ -30,7 +31,7 @@ class MongoProcessor
         $requestTs      = new UTCDateTime($time);
         $requestTsMicro = new UTCDateTime();
 
-        return array_merge($meta, [
+        $profile['meta'] = [
             'url'              => $uri,
             'SERVER'           => $_SERVER,
             'get'              => $_GET,
@@ -39,6 +40,6 @@ class MongoProcessor
             'request_ts'       => $requestTs,
             'request_ts_micro' => $requestTsMicro,
             'request_date'     => date('Y-m-d', $time),
-        ]);
+        ];
     }
 }
