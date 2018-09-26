@@ -1,16 +1,17 @@
 {
-    "name": "renlife/profiler-bundle",
-    "description": "Profiler bundle for Symfony",
+    "name": "renlifedev/profiler",
+    "description": "Profiler library for PHP to collect and save xhprof data",
     "authors": [
         {
             "name": "Vadim Ashikhman",
-            "email": "Vadim.Ashihman@Renlife.com"
+            "email": "v.ashikhman@gmail.com"
         }
     ],
-    "type": "bundle",
-    "license": "proprietary",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["Xhprof", "Profiling"],
     "require": {
-        "php": "^7.1",
+        "php": "^7.1.3",
         "psr/log": "~1.0"
     },
     "require-dev": {
@@ -27,7 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Renlife\\ProfilerBundle\\": "src"
+            "Renlife\\Profiler\\": "src"
         },
         "exclude-from-classmap": [
             "/tests/"
