@@ -2,13 +2,14 @@ language: php
 
 php:
     - '7.1'
-    - '7.2'
 
 cache:
     directories:
         - $HOME/.composer/cache
 
-
 before_script:
     - pecl install mongodb
     - composer install --no-interaction --no-progress --no-suggest
+
+script:
+    - vendor/bin/phpunit --exclude-group=Integration
