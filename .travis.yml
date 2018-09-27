@@ -1,15 +1,17 @@
+sudo: required
+
 language: php
 
-php:
-    - '7.1'
+services:
+    - docker
 
 cache:
     directories:
         - $HOME/.composer/cache
 
 before_script:
-    - pecl install mongodb
-    - travis_retry composer update
+    - docker-compose --version
+    - docker-compose up --build -d
 
 script:
-    - vendor/bin/phpunit --exclude-group=Integration
+    - ./bin/tests
