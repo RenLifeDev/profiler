@@ -1,9 +1,5 @@
 language: php
 
-env:
-    global:
-        - EXT_MONGO_VERSION=1.5.2
-
 php:
     - '7.1'
     - '7.2'
@@ -14,6 +10,5 @@ cache:
 
 
 before_script:
-    - tpecl mongodb-${EXT_MONGO_VERSION} mongodb.so
-    - php --ri mongodb
+    - pecl install mongodb
     - composer install --no-interaction --no-progress --no-suggest
