@@ -1,17 +1,12 @@
 sudo: required
 
-language: php
-
 services:
     - docker
-
-cache:
-    directories:
-        - $HOME/.composer/cache
 
 before_script:
     - docker-compose --version
     - docker-compose up --build -d
+    - docker-compose exec php sh composer update
 
 script:
     - ./bin/tests
