@@ -9,7 +9,7 @@ cache:
 
 before_script:
     - pecl install mongodb
-    - composer install --no-interaction --no-progress --no-suggest
+    - travis_retry composer update
 
 script:
     - vendor/bin/phpunit --exclude-group=Integration

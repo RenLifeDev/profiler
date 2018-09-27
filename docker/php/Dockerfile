@@ -1,8 +1,5 @@
-ARG PHP_MINOR=7.1
-FROM php:${PHP_MINOR}-fpm-alpine
-
-ARG PHP_MINOR
-ARG USERUID
+ARG PHP_VERSION_NAME=7.1
+FROM php:${PHP_VERSION_NAME}-fpm-alpine
 
 RUN apk add --no-cache --update --virtual build-dependencies build-base autoconf git openssl-dev
 
