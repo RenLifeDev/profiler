@@ -22,4 +22,6 @@ RUN git clone https://github.com/tideways/php-profiler-extension.git \
 
 RUN apk del build-dependencies
 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 WORKDIR /var/www/app
