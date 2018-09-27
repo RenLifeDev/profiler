@@ -6,7 +6,7 @@ services:
 before_script:
     - docker-compose --version
     - docker-compose up --build -d
-    - docker-compose exec php sh composer update
+    - ./bin/composer update
 
 script:
     - ./bin/tests
