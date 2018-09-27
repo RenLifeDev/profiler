@@ -48,7 +48,7 @@ class MongoHandler extends AbstractHandler
         $resolver->setRequired([
             'uri',
             'collection',
-            'db'
+            'db',
         ]);
 
         $resolver->setAllowedTypes('options', 'array');

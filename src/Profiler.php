@@ -114,6 +114,14 @@ final class Profiler
     }
 
     /**
+     * For testing purpose only.
+     */
+    private function tearDown(): void
+    {
+        self::$instance = null;
+    }
+
+    /**
      * Creates \DateTime object with microseconds.
      *
      * @return \DateTime

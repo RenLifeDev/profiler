@@ -4,25 +4,9 @@ services:
     php:
         build:
             context: ./docker/php
-            dockerfile: Dockerfile
-            args:
-                useruid: "${UID}"
-                username: app
-        logging:
-            driver: "json-file"
-            options:
-                max-size: "10000k"
-        environment:
-            DEBUG: 1
-            ENABLE_SSH: 1
-        working_dir: "/var/www/app/"
-        user: app
-        hostname: "tester"
+        user: "$UID:$GID"
         volumes:
-            - "./:/var/www/app/"
-            - "./docker/php/php.ini:/usr/local/etc/php/php.ini:ro"
-            - "./docker/php/fpm_pool.conf:/usr/local/etc/php-fpm.d/zz-docker.conf:ro"
-            - "${HOME}/.composer/cache:/home/app/.composer/cache"
+            - "./:/var/www/app/:z"
 
     mongo:
         image: mongo:latest
